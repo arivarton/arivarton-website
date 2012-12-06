@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.validators import RegexValidator
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 
-from wagtail.core.models import Page, Collection, CollectionViewRestriction
+from wagtail.core.models import Page, Collection, GroupCollectionPermission
 from wagtail.admin.edit_handlers import FieldPanel
 
 class RouteIndex(Page):
@@ -60,6 +60,40 @@ class RoutePage(Page):
         except Collection.DoesNotExist:
             root_collection = self.get_root_collection()
             main_collection = root_collection.add_child(name=main_name)
+
+            # Permissions
+            groups = ('Moderators', 'Editors')
+            for group in groups:
+                group = Group.objects.get(name=group)
+
+                # Delete all permissions for root collection
+                group.collection_permissions.filter(collection=root_collection).delete()
+
+                # Add permissions for main collection
+                GroupCollectionPermission(
+                    group=group,
+                    collection=main_collection,
+                    permission=Permission.objects.get(content_type__app_label='wagtaildocs',
+                                                      codename='add_document')
+                ).save()
+                GroupCollectionPermission(
+                    group=group,
+                    collection=main_collection,
+                    permission=Permission.objects.get(content_type__app_label='wagtaildocs',
+                                                      codename='change_document')
+                ).save()
+                GroupCollectionPermission(
+                    group=group,
+                    collection=main_collection,
+                    permission=Permission.objects.get(content_type__app_label='wagtailimages',
+                                                      codename='add_image')
+                ).save()
+                GroupCollectionPermission(
+                    group=group,
+                    collection=main_collection,
+                    permission=Permission.objects.get(content_type__app_label='wagtailimages',
+                                                      codename='change_image')
+                ).save()
 
         return main_collection
 
