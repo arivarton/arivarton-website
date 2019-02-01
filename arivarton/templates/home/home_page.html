@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags %}
+
+{% block head-extra %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <!-- <script type="text/javascript" src="{% static 'js/cssrefresh.js' %}"></script> -->
+{% endblock head-extra %}
+
+{% block content %}
+    {% for sub_menu in page.main_menu %} 
+        <div class="sub_site">
+            <a href="{{ sub_menu.url }}"><h2>{{ sub_menu }}</h2></a>
+            <p>{{ sub_menu.specific.intro }}</p>
+            <ul>
+                {% for descendant in sub_menu.descendants %}
+                <li><a href="{{ descendant.url }}" title="{{ descendant.specific.intro }}">{{ descendant }}</a><li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+    <div class="sub_site">
+        <h2>Tech</h2>
+        <p>My programming projects, portfolio and other stuff.</p>
+        <ul>
+            <li><a href="">Projects</a><li>
+            <li><a href="">Portfolio</a><li>
+            <li><a href="">My github</a><li>
+        </ul>
+    </div>
+{% endblock content %}

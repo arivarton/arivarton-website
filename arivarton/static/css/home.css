@@ -1,0 +1,54 @@
+html {
+    background-image: url(../img/white_logo.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+
+.sub_site {
+    width:30em;
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4em;
+    font-weight: 400;
+    list-style-type: none;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+p {
+    margin: 3em;
+    font-family: 'Merriweather', serif;
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+li {
+    margin-right:6px;
+    margin-left:6px;
+    display:inline;
+}
+
+li a {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 600;
+    font-size: 1.5em;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+}
+
+div:nth-child(1) {
+    grid-column: 2 / 3;
+
+}
+
+div:nth-child(2) {
+    grid-column: 3 / 4;
+}

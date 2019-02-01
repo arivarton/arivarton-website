@@ -1,0 +1,18 @@
+{% extends "base_w_nav.html" %}
+
+{% load static %}
+
+{% block head-extra %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/routes.css' %}">
+{% endblock head-extra %}
+
+{% block content %}
+    <main>
+        <h1>{{ page.title }}</h1>
+        <div class='intro'>{{ page.description }}</div>
+        <div class='route_map'>
+            <iframe src="{{ page.specific.map_url }}" width="100%" height="480"></iframe>
+        </div>
+    </main>
+{% endblock content %}

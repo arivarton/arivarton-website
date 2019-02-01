@@ -1,0 +1,16 @@
+{% spaceless %}
+<ul class='nav-list'>
+{% for menuitem in menuitems %}
+        <li class='nav-item-parent'>
+            <a href="{{ menuitem.url }}">{{ menuitem.title }}</a>
+        </li>
+    <div class='nav-spacer'></div>
+    {% for menuchild in menuitem.children %}
+            <li class='nav-item-child'>
+                <a href="{{ menuchild.url }}">{{ menuchild.title }}</a>
+            </li>
+        <div class='nav-spacer'></div>
+    {% endfor %}
+{% endfor %}
+</ul>
+{% endspaceless %}

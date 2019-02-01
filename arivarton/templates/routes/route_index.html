@@ -1,0 +1,26 @@
+{% extends "base_w_nav.html" %}
+
+{% load static %}
+
+{% block head-extra %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/routes.css' %}">
+{% endblock head-extra %}
+
+{% block content %}
+    <main>
+        <div class='content'>
+        <h1>{{ page.title }}</h1>
+        <div class='intro'>{{ page.intro }}</div>
+        </div>
+        <ul>
+        {% for route in page.children %}
+            <li>
+            <a href="{{ route.url }}">{{ route.title }}</a>
+            </li>
+        {% empty %}
+            <li>No routes.</li>
+        {% endfor %}
+        </ul>
+    </main>
+{% endblock content %}

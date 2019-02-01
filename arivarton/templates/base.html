@@ -1,0 +1,22 @@
+{% load static wagtailuserbar %}
+
+{% block head %}
+    {% include "includes/head.html" %}
+{% endblock head %}
+
+<body class="{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}">
+{% wagtailuserbar %}
+
+{% block head-extra %}
+{% endblock head-extra %}
+
+<div id="wrapper">
+    {% block navigation %}
+    {% endblock %}
+    {% block content %}
+    {% endblock content %}
+</div>
+
+</body>
+
+</html>

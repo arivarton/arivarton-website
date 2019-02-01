@@ -1,0 +1,14 @@
+db.sqlite3
+geckodriver.log
+.ropeproject/
+.venv/
+*.swp
+media/
+__pycache__
+*.pyc
+Session.vim
+security.txt
+migrations/
+all_images/
+sessions/
+Dockerfile

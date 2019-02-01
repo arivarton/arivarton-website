@@ -1,0 +1,10 @@
+{% extends "base_w_nav.html" %}
+
+{% load static wagtailcore_tags %}
+
+{% block content %}
+    <main>
+        <h1>{{ page.title }}</h1>
+        <div class='intro'>{{ page.intro|richtext }}</div>
+    </main>
+{% endblock content %}

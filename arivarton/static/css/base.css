@@ -1,0 +1,75 @@
+html {
+    min-height:100%;
+    width:100%;
+    background: linear-gradient(to top, rgba(255,0,0,.15), rgba(0,0,0,1));
+    background-color: black;
+    font-size:12px;
+    font-family:arial;
+    color: white;
+}
+
+body {
+    width:100%;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    min-height: 100%;
+}
+
+#wrapper {
+    display: grid;
+    grid-gap: 0vh;
+    grid-template-columns: 1fr minmax(63rem, 33%) 1fr;
+}
+
+main {
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+
+p, ul, li, h1, h2, h3, h4, h5, a {
+    margin:0;
+    padding:0;
+    list-style-type: none;
+}
+
+h1, ul, .intro {
+    padding: 9px;
+}
+
+a, a:visited {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 600;
+    text-decoration: underline;
+    color: white;
+}
+
+a:hover {
+    font-family: 'Titillium Web', sans-serif;
+    color: #af005f;
+    text-decoration: none;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3em;
+}
+
+.intro {
+    font-family: 'Merriweather', serif;
+}
+
+.content {
+    background-color:rgba(0,0,0,0.6);
+}
+
+.spacer {
+    position:absolute;
+    left:0.1em;
+    right:0.1em;
+    height:0.1em;
+    background-color:white;
+}

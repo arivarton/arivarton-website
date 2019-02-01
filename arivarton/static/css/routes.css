@@ -1,0 +1,11 @@
+.route_map {
+    margin: 9px;
+}
+
+iframe {
+    border: 0;
+}
+
+li a, li a:visited {
+    font-size:1.5em;
+}
