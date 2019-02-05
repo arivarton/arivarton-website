@@ -1,7 +1,8 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from django.contrib.auth.models import Group
 
-from wagtail.core.models import Page, Collection
+from wagtail.core.models import Page, Collection, CollectionViewRestriction
 from wagtail.admin.edit_handlers import FieldPanel
 
 class RouteIndex(Page):
@@ -52,34 +53,43 @@ class RoutePage(Page):
     def get_root_collection(self):
         return Collection.objects.get(name='Root')
 
+    def get_main_collection(self):
+        main_name = 'Main'
+        try:
+            main_collection = Collection.objects.get(name='Main')
+        except Collection.DoesNotExist:
+            root_collection = self.get_root_collection()
+            main_collection = root_collection.add_child(name=main_name)
+
+        return main_collection
+
     def get_parent_collection(self):
         ''' Set up inital stages for a image collection. '''
         parent_name = self.get_parent_collection_name()
+        main_collection = self.get_main_collection()
         try:
-            parent_collection = Collection.objects.get(name=parent_name)
+            parent_collection = main_collection.get_children().get(name=parent_name)
         except Collection.DoesNotExist:
-            root_collection = self.get_root_collection()
-            parent_collection = root_collection.add_child(name=parent_name)
+            parent_collection = main_collection.add_child(name=parent_name)
 
         return parent_collection
 
-    def get_deleted_collection(self):
-        deleted_collection_name = '_deleted'
-        collection_group_name = 'Deleted collections'
-        parent_collection = self.get_parent_collection()
+    def get_deleted_parent_collection(self):
+        root_collection = self.get_root_collection()
         try:
-            deleted_collection = parent_collection.get_children().get(name=deleted_collection_name)
+            deleted_collection = root_collection.get_children().get(name='Deleted')
         except Collection.DoesNotExist:
-            deleted_collection = parent_collection.add_child(name=deleted_collection_name)
-            try:
-                collection_group = Group.objects.get(name=collection_group_name)
-            except Group.DoesNotExist:
-                collection_group = Group(name=collection_group_name)
-                collection_group.save()
-            collection_restriction = CollectionViewRestriction(restriction_type='groups',
-                                                               collection=deleted_collection)
-            collection_restriction.save()
-            collection_restriction.groups.set((collection_group,))
+            deleted_collection = root_collection.add_child(name='Deleted')
+
+        return deleted_collection
+
+    def get_deleted_collection(self):
+        collection_name = '%s - %s' % (self.get_parent_collection_name(), self.slug)
+        parent_collection = self.get_deleted_parent_collection()
+        try:
+            deleted_collection = parent_collection.get_children().get(name=collection_name)
+        except Collection.DoesNotExist:
+            deleted_collection = parent_collection.add_child(name=collection_name)
 
         return deleted_collection
 
