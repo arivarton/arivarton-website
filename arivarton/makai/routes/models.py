@@ -118,7 +118,7 @@ class RoutePage(Page):
         return deleted_collection
 
     def get_deleted_collection(self):
-        collection_name = '%s - %s' % (self.get_parent_collection_name(), self.slug)
+        collection_name = self.get_parent_collection_name()
         parent_collection = self.get_deleted_parent_collection()
         try:
             deleted_collection = parent_collection.get_children().get(name=collection_name)

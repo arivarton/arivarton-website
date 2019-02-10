@@ -20,4 +20,5 @@ def after_edit_page(request, page):
 @hooks.register('after_delete_page')
 def after_delete_page(request, page):
     # Delete image collection for page
-    page.clean_collection()
+    if isinstance(page, RoutePage):
+        page.clean_collection()
