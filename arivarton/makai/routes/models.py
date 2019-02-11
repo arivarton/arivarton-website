@@ -138,15 +138,22 @@ class RoutePage(Page):
         parent_collection = self.get_parent_collection()
 
         # On edit
-        if self.image_collection:
+        if self.image_collection and self.image_collection != collection_name:
             self.image_collection.name = collection_name
             self.image_collection.save()
         # On create
         else:
-            page_collection = parent_collection.add_child(
-                name=collection_name
-            )
-            self.image_collection = page_collection
+            # If collection exists with the same name (should be in deleted objects)
+            try:
+                deleted_collection = Collection.objects.get(name=collection_name)
+                deleted_collection.move(parent_collection, pos='last-child')
+                self.image_collection = deleted_collection
+            # If collection does not exist
+            except Collection.DoesNotExist:
+                page_collection = parent_collection.add_child(
+                    name=collection_name
+                )
+                self.image_collection = page_collection
             self.save()
 
     def clean_collection(self):
