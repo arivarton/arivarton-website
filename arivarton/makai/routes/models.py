@@ -10,6 +10,7 @@ class RouteIndex(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro')
     ]
+
     subpage_types = ['RoutePage']
 
     def children(self):
@@ -131,7 +132,7 @@ class RoutePage(Page):
         ''' Set the collection when creating or editing a RoutePage.
         Every RoutePage needs a separate collection for images.'''
         parent_name = self.get_parent_collection_name()
-        collection_name = '%s - %s' % (parent_name, self.slug)
+        collection_name = '%s' % (self.slug)
 
         # If RoutePage has not been previously created, the parent for all RoutePage collections
         # must be.

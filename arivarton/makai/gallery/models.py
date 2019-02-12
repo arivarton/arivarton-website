@@ -10,6 +10,8 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from taggit.models import Tag, TaggedItemBase
 
+from arivarton.makai.routes.models import RouteIndex
+
 class GalleryIndex(RoutablePageMixin, Page):
     intro = models.CharField(max_length=250)
 
@@ -21,7 +23,8 @@ class GalleryIndex(RoutablePageMixin, Page):
     # Defines a method to access the children of the page (e.g. GalleryPage
     # objects). On the demo site we use this on the HomePage
     def children(self):
-        return self.get_children().specific().live()
+        return RouteIndex.objects.first().children()
+
 
     # Overrides the context to list all child items, that are live, by the
     # date that they were published
@@ -91,19 +94,10 @@ class GalleryPageTag(TaggedItemBase):
 
 class GalleryPage(Page):
     intro = models.CharField(max_length=250)
-    image = models.ForeignKey(
-        'base.CustomImage',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        help_text='Landscape mode only; horizontal width between 1000px and 3000px.'
-    )
     tags = ClusterTaggableManager(through=GalleryPageTag, blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
-        ImageChooserPanel('image'),
         FieldPanel('tags')
     ]
     parent_page_types = ['GalleryIndex']

@@ -24,6 +24,7 @@ body {
 
 main {
     margin: 0 auto;
+    padding: 9px;
     position: relative;
     width: 100%;
     grid-column: 2/3;
@@ -34,10 +35,6 @@ p, ul, li, h1, h2, h3, h4, h5, a {
     margin:0;
     padding:0;
     list-style-type: none;
-}
-
-h1, ul, .intro {
-    padding: 9px;
 }
 
 a, a:visited {
@@ -56,6 +53,11 @@ a:hover {
 h1 {
     font-family: 'Playfair Display', serif;
     font-size: 3em;
+    margin-bottom:18px;
+}
+
+div {
+    margin-bottom:9px;
 }
 
 .intro {
