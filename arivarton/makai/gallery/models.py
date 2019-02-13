@@ -10,7 +10,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from taggit.models import Tag, TaggedItemBase
 
-from arivarton.makai.routes.models import RouteIndex
+from arivarton.makai.routes.models import RoutePage
 
 class GalleryIndex(RoutablePageMixin, Page):
     intro = models.CharField(max_length=250)
@@ -22,8 +22,12 @@ class GalleryIndex(RoutablePageMixin, Page):
 
     # Defines a method to access the children of the page (e.g. GalleryPage
     # objects). On the demo site we use this on the HomePage
-    def children(self):
-        return RouteIndex.objects.first().children()
+    def route_page_with_images(self):
+        route_pages = []
+        for page in RoutePage.objects.all():
+            if page.has_images():
+                route_pages.append(page)
+        return route_pages
 
 
     # Overrides the context to list all child items, that are live, by the

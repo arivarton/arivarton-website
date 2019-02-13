@@ -14,6 +14,8 @@
         <div class='route_map'>
             <iframe src="{{ page.specific.map_url }}" width="100%" height="480"></iframe>
         </div>
-        <ul><a href="{% url 'specific_gallery' page.slug %}">Photos from this trip</a></ul>
+        {% if page.has_images %}
+            <ul><a href="{% url 'specific_gallery' page.slug %}">Photos from this trip</a></ul>
+        {% endif %}
     </main>
 {% endblock content %}

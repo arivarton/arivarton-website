@@ -5,6 +5,8 @@ from django.contrib.auth.models import Group, Permission
 from wagtail.core.models import Page, Collection, GroupCollectionPermission
 from wagtail.admin.edit_handlers import FieldPanel
 
+from arivarton.base.models import CustomImage
+
 class RouteIndex(Page):
     intro = models.CharField(max_length=250)
     content_panels = Page.content_panels + [
@@ -47,6 +49,9 @@ class RoutePage(Page):
         FieldPanel('map_url')
     ]
     subpage_types = []
+
+    def has_images(self):
+        return CustomImage.objects.filter(collection=self.image_collection)
 
     def get_parent_collection_name(self):
         return self.__class__.__name__
