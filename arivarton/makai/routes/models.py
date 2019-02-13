@@ -141,7 +141,7 @@ class RoutePage(Page):
         # On edit
         if self.image_collection and self.image_collection != collection_name:
             self.image_collection.name = collection_name
-            self.image_collection.save()
+            self.save()
         # On create
         else:
             # If collection exists with the same name (should be in deleted objects)
