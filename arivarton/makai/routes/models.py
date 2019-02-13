@@ -43,15 +43,19 @@ class RoutePage(Page):
         on_delete=models.SET_NULL,
         help_text='Select the image collection for this route.'
     )
+    start = models.DateField(null=True, blank=True)
+    end = models.DateField(null=True, blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('description'),
-        FieldPanel('map_url')
+        FieldPanel('map_url'),
+        FieldPanel('start'),
+        FieldPanel('end')
     ]
     subpage_types = []
 
     def has_images(self):
-        return CustomImage.objects.filter(collection=self.image_collection)
+        return CustomImage.objects.filter(collection=self.image_collection).exists()
 
     def get_parent_collection_name(self):
         return self.__class__.__name__

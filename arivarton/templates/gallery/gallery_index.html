@@ -9,7 +9,7 @@
             <div class='intro'>{{ page.intro }}</div>
         </div>
         <ul>
-        {% for route in page.route_page_with_images %}
+        {% for route in page.get_gallery_pages %}
             <li>
                 <a href="{% url 'specific_gallery' route.slug %}">{{ route.title }}</a>
             </li>

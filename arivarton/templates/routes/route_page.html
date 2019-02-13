@@ -1,6 +1,6 @@
 {% extends "base_w_nav.html" %}
 
-{% load static %}
+{% load static i18n %}
 
 {% block head-extra %}
 {{ block.super }}
@@ -11,9 +11,36 @@
     <main>
         <h1>{{ page.title }}</h1>
         <div class='intro'>{{ page.description }}</div>
+        <h2>{% trans 'Planned route' %}</h2>
+        <h3>{% trans 'Route map' %}</h3>
         <div class='route_map'>
             <iframe src="{{ page.specific.map_url }}" width="100%" height="480"></iframe>
         </div>
+        <h3>{% trans 'Total nautical miles' %}</h3>
+        <p>328nm</p>
+        <h2>{% trans 'Realised route' %}</h2>
+        <h3>{% trans 'Harbours visited' %}</h3>
+        <ul>
+            <li>Husøy Marine Service</li>
+            <li>Skudeneshavn Gjestehavn</p>
+            <li>Tananger Gjestehavn</p>
+            <li>Kristiansand Gjestehavn</p>
+        </ul>
+        <h3>{% trans 'Final harbour' %}</h3>
+        <p>Kristiansand Gjestehavn</p>
+        <h3>{% trans 'Total nautical miles' %}</h3>
+        <p>283</p>
+        <h3>{% trans 'Photos taken' %}</h3>
+        <p>38</p>
+        <h3>{% trans 'Videos taken' %}</h3>
+        <p>2</p>
+        <h2>{% trans 'Log' %}</h2>
+        <h3>{% trans '28.03.2018' %}</h3>
+        <ul>
+            <li>13 degrees air temperature</li>
+            <li>8knots of wind</li>
+            <li>Sailed 32 nautical miles to Skudeneshavn Gjestehavn.</li>
+        </ul>
         {% if page.has_images %}
             <ul><a href="{% url 'specific_gallery' page.slug %}">Photos from this trip</a></ul>
         {% endif %}
